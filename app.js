@@ -1,11 +1,18 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const authRoutes = require('./routes/auth')
+const mongoose = require(mongoose);
 const analyticsRoutes = require('./routes/analytics')
 const categoryRoutes = require('./routes/category')
 const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
+const keys = require('./config/keys')
 const app = express()
+
+mongoose.connect(keys.mongoURI)
+    .then(() => console.log('MongoDb connected'))
+    .catch(error => console.log(error))
+
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
